@@ -1,0 +1,42 @@
+language: php
+
+dist: trusty
+
+php:
+  - "5.4"
+  - "5.5"
+  - "5.6"
+  - "7.0"
+  - "7.1"
+  - "7.2"
+  - "hhvm-3.12"
+  - "hhvm-3.18"
+  - "hhvm-3.24"
+  - "nightly"
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: "nightly"
+  include:
+    - dist: precise
+      php: "5.3"
+    - php: "7.1"
+      env: DOCS=yes
+
+sudo: false
+
+install:
+  - if [ "$TRAVIS_PHP_VERSION" = "5.3" ] ; then sed -i '/apigen/D' composer.json ; fi
+  - composer install
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+script: 
+  - ./vendor/bin/phpunit --configuration phpunit.xml
+  - if [ "$DOCS" = "yes" ] ; then ./vendor/bin/apigen generate --destination doc --source src/ ; fi
