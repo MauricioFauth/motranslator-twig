@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PhpMyAdmin\\MoTranslator\Twig\\": "src"
+            "PhpMyAdmin\\MoTranslator\\Twig\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PhpMyAdmin\\MoTranslator\Twig\\Tests\\": "tests"
+            "PhpMyAdmin\\MoTranslator\\Twig\\Tests\\": "tests"
         }
     }
 }
